@@ -1,43 +1,55 @@
-# Kyle's Stack
+# Todo App
 
-A starter for building apps with TanStack Start, Radix UI, and capsize typography — with [`@tanstack/intent`](https://github.com/TanStack/intent) skills pre-installed for **Electric**, **TanStack DB**, and **Durable Streams**.
+A reactive, real-time todo application built with Electric SQL and TanStack DB. Changes sync live across all connected clients via Postgres and Electric.
 
-## Quick Start
+## Screenshot
+
+_Add a screenshot here_
+
+## Features
+
+- Create todos with a title
+- Mark todos as complete/incomplete (with live optimistic updates)
+- Delete individual todos
+- Clear all completed todos at once
+- Real-time sync across browser tabs and devices via Electric SQL
+- Persistent storage in Postgres
+
+## Getting Started
 
 ```bash
-npx gitpick KyleAMathews/kpb my-app
-cd my-app
 pnpm install
-pnpm dev
+pnpm dev:start
 ```
 
-## Included Skills
+The app will be available at `http://localhost:5173`.
 
-This starter comes with skills pre-installed. Just ask your coding agent:
+## Tech Stack
 
-**Electric** — Sync Postgres to your app
-- "Set up Electric sync for my Postgres database"
-- "Run the Electric security checklist"
+- **[Electric SQL](https://electric-sql.com)** — Real-time Postgres sync to the client via shapes
+- **[TanStack DB](https://tanstack.com/db)** — Reactive client-side collections with live queries and optimistic mutations
+- **[Drizzle ORM](https://orm.drizzle.team)** — Schema definitions and migrations
+- **[TanStack Start](https://tanstack.com/start)** — Full-stack React meta-framework with SSR
+- **[Radix UI Themes](https://www.radix-ui.com/themes)** — Accessible UI components
 
-**TanStack DB** — Reactive client-side data
-- "Add a TanStack DB collection for the users table"
-- "Set up live queries for my todos"
+## Development
 
-**Durable Streams** — Real-time state sync
-- "Set up a Durable Streams dev environment"
-- "Add presence tracking to my app"
+```bash
+# Start dev server (Vite + Postgres + Electric)
+pnpm dev:start
 
-**Radix + Capsize** — Typography
-- "Switch to the Playfair theme"
-- "Show me more font theme options"
+# Stop dev server
+pnpm dev:stop
 
-## What's Included
+# Run migrations
+pnpm drizzle-kit generate && pnpm drizzle-kit migrate
 
-- **TanStack Start** - Full-stack React framework
-- **Radix UI** - Accessible components with themes
-- **Capsize typography** - Pixel-perfect text rendering
-- **Dozens of font pairings included** - Ask the agent to set one up
-- **Biome** - Fast linting and formatting
+# Run tests
+pnpm test
+
+# Build for production
+pnpm run build
+```
 
 ## License
 
