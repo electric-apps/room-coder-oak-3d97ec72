@@ -27,11 +27,10 @@ describe("todos collection validation", () => {
 		}
 	})
 
-	it("title cannot be empty string (required field)", () => {
-		const row = generateValidRow(todoSelectSchema)
-		const result = todoSelectSchema.safeParse({ ...row, title: "" })
-		// Empty string is technically allowed by z.string() — this just tests parsing works
-		expect(result.success).toBe(true)
+	it("insert schema rejects empty title", () => {
+		const row = generateValidRow(todoInsertSchema)
+		const result = todoInsertSchema.safeParse({ ...row, title: "" })
+		expect(result.success).toBe(false)
 	})
 
 	it("dates are Date objects after parsing", () => {

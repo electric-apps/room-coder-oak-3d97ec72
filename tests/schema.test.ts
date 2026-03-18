@@ -39,6 +39,18 @@ describe("todos schema", () => {
 		expect(result.success).toBe(true)
 	})
 
+	it("insert schema rejects empty title", () => {
+		const row = {
+			id: crypto.randomUUID(),
+			title: "",
+			completed: false,
+			created_at: new Date(),
+			updated_at: new Date(),
+		}
+		const result = todoInsertSchema.safeParse(row)
+		expect(result.success).toBe(false)
+	})
+
 	it("completed defaults to false", () => {
 		const row = generateValidRow(todoSelectSchema)
 		const result = todoSelectSchema.safeParse({ ...row, completed: false })

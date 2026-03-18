@@ -8,6 +8,7 @@ export const todoSelectSchema = createSelectSchema(todos, {
 });
 
 export const todoInsertSchema = createInsertSchema(todos, {
+	title: z.string().min(1),
 	created_at: z.union([z.date(), z.string().transform((s) => new Date(s))]),
 	updated_at: z.union([z.date(), z.string().transform((s) => new Date(s))]),
 });

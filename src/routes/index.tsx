@@ -148,11 +148,13 @@ function TodoPage() {
 							variant="soft"
 							color="gray"
 							size="2"
-							onClick={async () => {
-								for (const todo of todos.filter((t) => t.completed)) {
-									await todosCollection.delete(todo.id);
-								}
-							}}
+							onClick={() =>
+								Promise.all(
+									todos
+										.filter((t) => t.completed)
+										.map((t) => todosCollection.delete(t.id)),
+								)
+							}
 						>
 							Clear completed
 						</Button>

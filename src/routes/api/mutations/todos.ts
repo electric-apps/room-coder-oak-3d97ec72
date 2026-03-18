@@ -2,13 +2,15 @@ import { createFileRoute } from "@tanstack/react-router";
 import { eq } from "drizzle-orm";
 import { db } from "@/db";
 import { todos } from "@/db/schema";
+import { todoInsertSchema } from "@/db/zod-schemas";
 import { generateTxId, parseDates } from "@/db/utils";
 
 export const Route = createFileRoute("/api/mutations/todos")({
 	server: {
 		handlers: {
 			POST: async ({ request }) => {
-				const body = parseDates(await request.json());
+				const raw = parseDates(await request.json());
+				const body = todoInsertSchema.parse(raw);
 				let txid!: number;
 				const result = await db.transaction(async (tx) => {
 					txid = await generateTxId(tx);
@@ -18,8 +20,9 @@ export const Route = createFileRoute("/api/mutations/todos")({
 				return Response.json({ todo: result, txid });
 			},
 			PUT: async ({ request }) => {
-				const body = parseDates(await request.json());
-				const { id, ...updates } = body as {
+				const raw = parseDates(await request.json());
+				const partial = todoInsertSchema.partial().parse(raw);
+				const { id, ...updates } = partial as {
 					id: string;
 					[key: string]: unknown;
 				};
